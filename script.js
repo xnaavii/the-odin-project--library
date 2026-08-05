@@ -1,5 +1,6 @@
-const library = document.querySelector('.library');
 const myLibrary = [];
+const library = document.querySelector('.library');
+const newBookBtn = document.querySelector('.new-book--btn');
 
 const dummyBooks = [
   { title: 'To Kill a Mockingbird', author: 'Harper Lee', pages: 281 },
@@ -71,3 +72,11 @@ if (myLibrary.length > 0) {
     library.append(newBook);
   });
 }
+
+newBookBtn.addEventListener('click', () => {
+  const newBookModal = document.querySelector('.new-book--modal');
+  if (newBookModal) {
+    newBookModal.showModal();
+    return;
+  }
+});
