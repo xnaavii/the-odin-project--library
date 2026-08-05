@@ -29,4 +29,4 @@ dummyBooks.forEach((book) => {
   addBookToLibrary(book.title, book.author, book.pages);
 });
 
-(() => console.log(myLibrary))();
+console.log(myLibrary)
