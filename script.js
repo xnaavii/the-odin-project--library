@@ -33,16 +33,27 @@ function addBookToLibrary(book) {
 
 function createBookCard(book) {
   const article = document.createElement('article');
+  article.classList.add('card');
+
+  const headContent = document.createElement('section');
+  headContent.classList.add('head-content');
+
   const title = document.createElement('h4');
+  title.classList.add('title');
+
   const author = document.createElement('p');
+  author.classList.add('author');
+
   const pages = document.createElement('p');
+  pages.classList.add('pages');
 
   title.textContent = book.title;
   author.textContent = book.author;
-  pages.textContent = book.pages;
+  pages.textContent = `${book.pages} pages`;
 
-  article.append(title);
-  article.append(author);
+  headContent.append(title);
+  headContent.append(author);
+  article.append(headContent);
   article.append(pages);
 
   return article;
