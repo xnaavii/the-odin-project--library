@@ -1,6 +1,7 @@
 const myLibrary = [];
 const library = document.querySelector('.library');
 const newBookModal = document.querySelector('.new-book--modal');
+const newBookForm = document.querySelector('.new-book--form');
 const newBookBtn = document.querySelector('.new-book--btn');
 const cancelAddNewBookBtn = document.querySelector('.cancel-add-new-book--btn');
 
@@ -62,18 +63,36 @@ function createBookCard(book) {
   return article;
 }
 
-if (dummyBooks.length > 0) {
-  dummyBooks.forEach((book) => {
-    addBookToLibrary(book);
-  });
-}
-
-if (myLibrary.length > 0) {
+function createBookCards() {
   myLibrary.forEach((book) => {
     const newBook = createBookCard(book);
     library.append(newBook);
   });
 }
 
+if (dummyBooks.length > 0) {
+  dummyBooks.forEach((book) => {
+    addBookToLibrary(book);
+  });
+}
+
+createBookCards();
+
 newBookBtn.addEventListener('click', () => newBookModal.showModal());
 cancelAddNewBookBtn.addEventListener('click', () => newBookModal.close());
+newBookForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const formData = new FormData(newBookForm);
+  const title = formData.get('title');
+  const author = formData.get('author');
+  const pages = formData.get('pages');
+
+  if (!title || !author || !pages) {
+    return;
+  }
+
+  addBookToLibrary({ title, author, pages });
+  createBookCards();
+
+  newBookModal.close();
+});
