@@ -1,6 +1,8 @@
 const myLibrary = [];
 const library = document.querySelector('.library');
+const newBookModal = document.querySelector('.new-book--modal');
 const newBookBtn = document.querySelector('.new-book--btn');
+const cancelAddNewBookBtn = document.querySelector('.cancel-add-new-book--btn');
 
 const dummyBooks = [
   { title: 'To Kill a Mockingbird', author: 'Harper Lee', pages: 281 },
@@ -73,12 +75,5 @@ if (myLibrary.length > 0) {
   });
 }
 
-newBookBtn.addEventListener('click', () => {
-  const newBookModal = document.querySelector('.new-book--modal');
-  if (newBookModal) {
-    newBookModal.showModal();
-    return;
-  }
-});
-
-// Add close button on modal and add event listener to it
+newBookBtn.addEventListener('click', () => newBookModal.showModal());
+cancelAddNewBookBtn.addEventListener('click', () => newBookModal.close());
