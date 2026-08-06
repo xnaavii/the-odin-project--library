@@ -80,3 +80,5 @@ newBookBtn.addEventListener('click', () => {
     return;
   }
 });
+
+// Add close button on modal and add event listener to it
