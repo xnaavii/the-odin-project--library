@@ -80,6 +80,13 @@ body {
   color: var(--gray-700);
 }
 
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: space-between;
+}
+
 .btn {
   padding: 0.5rem 1rem;
   border-radius: 1rem;

@@ -1,4 +1,4 @@
-const myLibrary = [];
+let myLibrary = [];
 const library = document.querySelector('.library');
 const newBookModal = document.querySelector('.new-book--modal');
 const newBookForm = document.querySelector('.new-book--form');
@@ -25,42 +25,46 @@ function Book(id, title, author, pages) {
   this.pages = pages;
 }
 
-function addBookToLibrary(book) {
-  const newBook = new Book(
-    crypto.randomUUID(),
-    book.title,
-    book.author,
-    book.pages,
-  );
+function addBookToLibrary({ title, author, pages }) {
+  const newBook = new Book(crypto.randomUUID(), title, author, pages);
   myLibrary.push(newBook);
 }
 
-function createBookCard(book) {
-  const article = document.createElement('article');
-  article.classList.add('card');
+function createBookCard({ id, title, author, pages }) {
+  const articleEl = document.createElement('article');
+  const headContentEl = document.createElement('section');
+  const titleEl = document.createElement('h4');
+  const authorEl = document.createElement('p');
+  const pagesEl = document.createElement('p');
+  const footerEl = document.createElement('footer');
+  const removeBookBtn = document.createElement('button');
 
-  const headContent = document.createElement('section');
-  headContent.classList.add('head-content');
+  articleEl.dataset.id = id;
 
-  const title = document.createElement('h4');
-  title.classList.add('title');
+  articleEl.classList.add('card');
+  headContentEl.classList.add('head-content');
+  titleEl.classList.add('title');
+  authorEl.classList.add('author');
+  pagesEl.classList.add('pages');
+  footerEl.classList.add('footer-content');
+  removeBookBtn.classList.add('remove-book--btn');
+  removeBookBtn.classList.add('btn');
 
-  const author = document.createElement('p');
-  author.classList.add('author');
+  titleEl.textContent = title;
+  authorEl.textContent = author;
+  pagesEl.textContent = `${pages} pages`;
+  removeBookBtn.textContent = 'Remove';
 
-  const pages = document.createElement('p');
-  pages.classList.add('pages');
+  headContentEl.append(titleEl);
+  headContentEl.append(authorEl);
+  articleEl.append(headContentEl);
+  articleEl.append(footerEl);
+  footerEl.append(pagesEl);
+  footerEl.append(removeBookBtn);
 
-  title.textContent = book.title;
-  author.textContent = book.author;
-  pages.textContent = `${book.pages} pages`;
+  removeBookBtn.addEventListener('click', () => removeBook(id));
 
-  headContent.append(title);
-  headContent.append(author);
-  article.append(headContent);
-  article.append(pages);
-
-  return article;
+  return articleEl;
 }
 
 function createBookCards() {
@@ -70,12 +74,23 @@ function createBookCards() {
   });
 }
 
-if (dummyBooks.length > 0) {
-  dummyBooks.forEach((book) => {
+function removeBook(id) {
+  myLibrary = myLibrary.filter((book) => book.id !== id);
+  const books = document.querySelectorAll('.card');
+  books.forEach((book) => {
+    if (book.dataset.id === id) {
+      library.removeChild(book);
+    }
+  });
+}
+
+function addBooksToLibrary(books) {
+  books.forEach((book) => {
     addBookToLibrary(book);
   });
 }
 
+addBooksToLibrary(dummyBooks);
 createBookCards();
 
 newBookBtn.addEventListener('click', () => newBookModal.showModal());
