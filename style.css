@@ -139,3 +139,7 @@ body {
   border: 1px solid var(--border);
   background-color: var(--gray-100);
 }
+
+.input-group > input::placeholder {
+  color: var(--gray-600);
+}
