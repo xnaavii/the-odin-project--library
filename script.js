@@ -30,71 +30,41 @@ function addBookToLibrary({ title, author, pages }) {
   myLibrary.push(newBook);
 }
 
-function createBookCard({ id, title, author, pages }) {
-  const articleEl = document.createElement('article');
-  const headContentEl = document.createElement('section');
-  const titleEl = document.createElement('h4');
-  const authorEl = document.createElement('p');
-  const pagesEl = document.createElement('p');
-  const footerEl = document.createElement('footer');
-  const removeBookBtn = document.createElement('button');
-
-  articleEl.dataset.id = id;
-
-  articleEl.classList.add('card');
-  headContentEl.classList.add('head-content');
-  titleEl.classList.add('title');
-  authorEl.classList.add('author');
-  pagesEl.classList.add('pages');
-  footerEl.classList.add('footer-content');
-  removeBookBtn.classList.add('remove-book--btn');
-  removeBookBtn.classList.add('btn');
-
-  titleEl.textContent = title;
-  authorEl.textContent = author;
-  pagesEl.textContent = `${pages} pages`;
-  removeBookBtn.textContent = 'Remove';
-
-  headContentEl.append(titleEl);
-  headContentEl.append(authorEl);
-  articleEl.append(headContentEl);
-  articleEl.append(footerEl);
-  footerEl.append(pagesEl);
-  footerEl.append(removeBookBtn);
-
-  removeBookBtn.addEventListener('click', () => removeBook(id));
-
-  return articleEl;
-}
-
-function createBookCards() {
+function renderBooks() {
+  library.innerHTML = '';
   myLibrary.forEach((book) => {
-    const newBook = createBookCard(book);
-    library.append(newBook);
+    const bookCard = `<article class="card" data-id=${book.id}>
+      <section class="head-content">
+        <h4 class="title">${book.title}</h4>
+        <p class="author">${book.author}</p>
+        </section>
+        <footer class="footer-content">
+        <p class="pages">${book.pages} Pages</p>
+        <button class="btn remove-book--btn">Remove</button>
+      </footer>
+    </article>`;
+    library.insertAdjacentHTML('beforeend', bookCard);
   });
 }
 
-function removeBook(id) {
+dummyBooks.forEach((book) => {
+  addBookToLibrary(book);
+});
+
+renderBooks();
+
+library.addEventListener('click', (e) => {
+  if (!e.target.classList.contains('remove-book--btn')) return;
+  const card = e.target.closest('.card');
+  const id = card.dataset.id;
   myLibrary = myLibrary.filter((book) => book.id !== id);
-  const books = document.querySelectorAll('.card');
-  books.forEach((book) => {
-    if (book.dataset.id === id) {
-      library.removeChild(book);
-    }
-  });
-}
-
-function addBooksToLibrary(books) {
-  books.forEach((book) => {
-    addBookToLibrary(book);
-  });
-}
-
-addBooksToLibrary(dummyBooks);
-createBookCards();
+  renderBooks();
+});
 
 newBookBtn.addEventListener('click', () => newBookModal.showModal());
+
 cancelAddNewBookBtn.addEventListener('click', () => newBookModal.close());
+
 newBookForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const formData = new FormData(newBookForm);
@@ -107,7 +77,5 @@ newBookForm.addEventListener('submit', (e) => {
   }
 
   addBookToLibrary({ title, author, pages });
-  createBookCards();
-
   newBookModal.close();
 });
