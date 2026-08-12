@@ -53,7 +53,7 @@ function renderBooks() {
         <p class="pages">${book.pages} Pages</p>
       </header>
       <footer>
-        <button class="btn remove-book--btn">Remove</button>
+        <button class="btn btn-destructive remove-book--btn">Remove</button>
       </footer>
     </article>`;
     library.insertAdjacentHTML('beforeend', bookCard);
