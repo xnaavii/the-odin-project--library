@@ -13,6 +13,17 @@ const dummyBooks = [
   { title: 'Fahrenheit 451', author: 'Ray Bradbury', pages: 256 },
 ];
 
+function Book(id, title, author, pages) {
+  if (!new.target) {
+    throw Error("You must use the 'new' operator to call the constructor");
+  }
+
+  this.id = id;
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+}
+
 function Library() {
   if (!new.target) {
     throw Error('This has to be called with the new operator!');
@@ -28,17 +39,6 @@ function Library() {
   this.removeBook = function removeBook(id) {
     this.books = this.books.filter((book) => book.id !== id);
   };
-}
-
-function Book(id, title, author, pages) {
-  if (!new.target) {
-    throw Error("You must use the 'new' operator to call the constructor");
-  }
-
-  this.id = id;
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
 }
 
 function renderBooks() {
@@ -86,6 +86,7 @@ newBookForm.addEventListener('submit', (e) => {
     return;
   }
 
-  addBookToLibrary({ title, author, pages });
+  myLibrary.addNewBook({ title, author, pages });
+  renderBooks();
   newBookModal.close();
 });
