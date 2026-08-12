@@ -1,4 +1,3 @@
-let myLibrary = [];
 const library = document.querySelector('.library');
 const newBookModal = document.querySelector('.new-book--modal');
 const newBookForm = document.querySelector('.new-book--form');
@@ -14,6 +13,23 @@ const dummyBooks = [
   { title: 'Fahrenheit 451', author: 'Ray Bradbury', pages: 256 },
 ];
 
+function Library() {
+  if (!new.target) {
+    throw Error('This has to be called with the new operator!');
+  }
+
+  this.books = [];
+
+  this.addNewBook = function addNewBook({ title, author, pages }) {
+    const newBook = new Book(crypto.randomUUID(), title, author, pages);
+    this.books.push(newBook);
+  };
+
+  this.removeBook = function removeBook(id) {
+    this.books = this.books.filter((book) => book.id !== id);
+  };
+}
+
 function Book(id, title, author, pages) {
   if (!new.target) {
     throw Error("You must use the 'new' operator to call the constructor");
@@ -25,14 +41,10 @@ function Book(id, title, author, pages) {
   this.pages = pages;
 }
 
-function addBookToLibrary({ title, author, pages }) {
-  const newBook = new Book(crypto.randomUUID(), title, author, pages);
-  myLibrary.push(newBook);
-}
-
 function renderBooks() {
   library.innerHTML = '';
-  myLibrary.forEach((book) => {
+  const books = myLibrary.books;
+  books.forEach((book) => {
     const bookCard = `<article class="card" data-id=${book.id}>
       <section class="head-content">
         <h4 class="title">${book.title}</h4>
@@ -47,24 +59,22 @@ function renderBooks() {
   });
 }
 
+const myLibrary = new Library(dummyBooks);
 dummyBooks.forEach((book) => {
-  addBookToLibrary(book);
+  myLibrary.addNewBook(book);
 });
-
 renderBooks();
 
 library.addEventListener('click', (e) => {
   if (!e.target.classList.contains('remove-book--btn')) return;
   const card = e.target.closest('.card');
   const id = card.dataset.id;
-  myLibrary = myLibrary.filter((book) => book.id !== id);
+  myLibrary.removeBook(id);
   renderBooks();
 });
 
 newBookBtn.addEventListener('click', () => newBookModal.showModal());
-
 cancelAddNewBookBtn.addEventListener('click', () => newBookModal.close());
-
 newBookForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const formData = new FormData(newBookForm);
