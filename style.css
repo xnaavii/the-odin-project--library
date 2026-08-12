@@ -55,8 +55,10 @@ body {
   width: 100%;
   max-width: 1280px;
   min-height: 100svh;
+  height: 100%;
   margin: 0 auto;
   background-color: var(--gray-700);
+  overflow: hidden;
 }
 
 .container > h1 {
