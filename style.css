@@ -66,25 +66,65 @@ body {
 
 .library {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 2rem;
 }
 
-.card {
+.book {
+  --page-thickness: 0.75rem;
+
+  min-height: 300px;
+  position: relative;
+  background-color: var(--gray-400);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border: 1px solid var(--border);
+  max-width: 200px;
   min-height: 300px;
-  padding: 1rem;
-  background-color: var(--gray-100);
+  padding: 2rem 2.5rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(var(--page-thickness) * 2);
+    height: 100%;
+    background-color: var(--gray-500);
+  }
 }
 
-.card header {
+.book-pages--top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: var(--page-thickness);
+  width: 100%;
+  transform-origin: left bottom;
+  transform: translateY(-100%) skew(-45deg);
+  background-color: var(--gray-200);
+}
+
+.book-pages--side {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: var(--page-thickness);
+  transform-origin: left top;
+  transform: translateX(100%) skewY(-45deg);
+  background-color: var(--gray-300);
+}
+
+.book header {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   text-wrap: pretty;
+}
+
+.title {
+  font-size: 1.2rem;
 }
 
 .author {
@@ -96,7 +136,7 @@ body {
   font-size: 0.75rem;
 }
 
-.card footer {
+.book footer {
   display: flex;
 }
 
@@ -136,7 +176,7 @@ body {
   opacity: 0;
 }
 
-.card:hover .remove-book--btn {
+.book:hover .remove-book--btn {
   opacity: 1;
 }
 

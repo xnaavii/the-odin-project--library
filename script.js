@@ -46,7 +46,9 @@ function renderBooks() {
   const books = myLibrary.books;
   books.forEach((book) => {
     const bookCard = `
-    <article class="card" data-id=${book.id}>
+    <article class="book" data-id=${book.id}>
+      <div class="book-pages--top"></div>
+      <div class="book-pages--side"></div>
       <header>
         <h4 class="title">${book.title}</h4>
         <p class="author">${book.author}</p>
@@ -68,7 +70,7 @@ renderBooks();
 
 library.addEventListener('click', (e) => {
   if (!e.target.classList.contains('remove-book--btn')) return;
-  const card = e.target.closest('.card');
+  const card = e.target.closest('.book');
   const id = card.dataset.id;
   myLibrary.removeBook(id);
   renderBooks();
