@@ -80,7 +80,6 @@ body {
 .book {
   --page-thickness: 0.75rem;
 
-  min-height: 300px;
   position: relative;
   background-color: var(--gray-100);
   display: flex;
