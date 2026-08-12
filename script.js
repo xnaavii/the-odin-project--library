@@ -45,13 +45,14 @@ function renderBooks() {
   library.innerHTML = '';
   const books = myLibrary.books;
   books.forEach((book) => {
-    const bookCard = `<article class="card" data-id=${book.id}>
-      <section class="head-content">
+    const bookCard = `
+    <article class="card" data-id=${book.id}>
+      <header>
         <h4 class="title">${book.title}</h4>
         <p class="author">${book.author}</p>
-        </section>
-        <footer class="footer-content">
         <p class="pages">${book.pages} Pages</p>
+      </header>
+      <footer>
         <button class="btn remove-book--btn">Remove</button>
       </footer>
     </article>`;

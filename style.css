@@ -62,8 +62,8 @@ body {
 
 .library {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 2rem;
 }
 
 .card {
@@ -71,31 +71,29 @@ body {
   flex-direction: column;
   justify-content: space-between;
   border: 1px solid var(--border);
-  min-height: 350px;
-  border-radius: 1rem;
+  min-height: 300px;
   padding: 1rem;
   background-color: var(--gray-100);
 }
 
-.head-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.author {
-  color: var(--gray-800);
-}
-
-.pages {
-  color: var(--gray-700);
-}
-
-.footer-content {
+.card header {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  justify-content: space-between;
+  text-wrap: pretty;
+}
+
+.author {
+  color: var(--gray-700);
+}
+
+.pages {
+  color: var(--gray-600);
+  font-size: 0.75rem;
+}
+
+.card footer {
+  display: flex;
 }
 
 .btn {
