@@ -67,7 +67,7 @@ body {
 .library {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .book {
@@ -75,13 +75,15 @@ body {
 
   min-height: 300px;
   position: relative;
-  background-color: var(--gray-400);
+  background-color: var(--gray-100);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 100%;
   max-width: 200px;
   min-height: 300px;
   padding: 2rem 2.5rem;
+  transition: ease-out 100ms;
 
   &::before {
     content: '';
@@ -91,6 +93,13 @@ body {
     width: calc(var(--page-thickness) * 2);
     height: 100%;
     background-color: var(--gray-500);
+  }
+
+  &:hover {
+    background-color: var(--gray-300);
+    transform: translateY(-5%);
+    z-index: 9;
+    box-shadow: 2px 20px 15px rgba(0, 0, 0, 0.2);
   }
 }
 
@@ -113,7 +122,7 @@ body {
   width: var(--page-thickness);
   transform-origin: left top;
   transform: translateX(100%) skewY(-45deg);
-  background-color: var(--gray-300);
+  background-color: var(--gray-400);
 }
 
 .book header {
