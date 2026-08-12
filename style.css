@@ -43,6 +43,7 @@ body {
   display: flex;
   justify-content: center;
   min-height: 100svh;
+  background-color: var(--gray);
 }
 
 .container {
