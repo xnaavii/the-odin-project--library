@@ -86,7 +86,7 @@ newBookForm.addEventListener('submit', (e) => {
   const pages = formData.get('pages');
 
   myLibrary.addNewBook({ title, author, pages });
-  e.target.reset();
-  renderBooks();
+  newBookForm.reset();
   newBookModal.close();
+  renderBooks();
 });
