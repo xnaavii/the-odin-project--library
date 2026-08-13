@@ -55,8 +55,8 @@ function renderBooks() {
         <p class="pages">${book.pages} Pages</p>
       </header>
       <footer>
-        <button class="btn btn-destructive remove-book--btn">Remove</button>
-        <button class="btn btn-secondary mark-book-as-read--btn">${book.read ? '✔️' : 'Mark as read'}</button>
+      <button class="btn btn-destructive remove-book--btn">Remove</button>
+      <button class="btn btn-secondary mark-book-as-read--btn">${book.read ? 'Read ✔️' : 'Mark as read'}</button>
       </footer>
     </article>`;
     library.insertAdjacentHTML('beforeend', bookCard);

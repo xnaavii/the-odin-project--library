@@ -90,7 +90,6 @@ body {
   width: 100%;
   max-width: 300px;
   min-height: 400px;
-  padding: 2rem 2.5rem;
   transition: ease-out 100ms;
 
   &::before {
@@ -137,7 +136,16 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding: 2rem 2.5rem;
   text-wrap: pretty;
+}
+
+.book footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 2.5rem;
 }
 
 .title {
