@@ -85,11 +85,8 @@ newBookForm.addEventListener('submit', (e) => {
   const author = formData.get('author');
   const pages = formData.get('pages');
 
-  if (!title || !author || !pages) {
-    return;
-  }
-
   myLibrary.addNewBook({ title, author, pages });
+  e.target.reset();
   renderBooks();
   newBookModal.close();
 });
