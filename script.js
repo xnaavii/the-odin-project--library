@@ -86,6 +86,7 @@ library.addEventListener('click', (e) => {
 
     if (removeBookBtn) {
       myLibrary.removeBook(id);
+      renderBooks();
     }
 
     if (markAsReadBtn) {

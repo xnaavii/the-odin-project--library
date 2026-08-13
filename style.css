@@ -88,8 +88,8 @@ body {
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  max-width: 200px;
-  min-height: 300px;
+  max-width: 300px;
+  min-height: 400px;
   padding: 2rem 2.5rem;
   transition: ease-out 100ms;
 
