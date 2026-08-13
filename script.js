@@ -73,7 +73,6 @@ dummyBooks.forEach((book) => {
   myLibrary.addNewBook(book);
 });
 
-console.log(myLibrary.books);
 renderBooks();
 
 library.addEventListener('click', (e) => {
