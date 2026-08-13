@@ -56,6 +56,7 @@ function renderBooks() {
       </header>
       <footer>
         <button class="btn btn-destructive remove-book--btn">Remove</button>
+        <button class="btn btn-secondary mark-book-as-read--btn">${book.read ? '✔️' : 'Mark as read'}</button>
       </footer>
     </article>`;
     library.insertAdjacentHTML('beforeend', bookCard);
@@ -63,17 +64,37 @@ function renderBooks() {
 }
 
 const myLibrary = new Library(dummyBooks);
+
+Book.prototype.markAsRead = function () {
+  this.read = !this.read;
+};
+
 dummyBooks.forEach((book) => {
   myLibrary.addNewBook(book);
 });
+
+console.log(myLibrary.books);
 renderBooks();
 
 library.addEventListener('click', (e) => {
-  if (!e.target.classList.contains('remove-book--btn')) return;
-  const card = e.target.closest('.book');
-  const id = card.dataset.id;
-  myLibrary.removeBook(id);
-  renderBooks();
+  const removeBookBtn = e.target.classList.contains('remove-book--btn');
+  const markAsReadBtn = e.target.classList.contains('mark-book-as-read--btn');
+
+  if (removeBookBtn || markAsReadBtn) {
+    const card = e.target.closest('.book');
+    const id = card.dataset.id;
+
+    if (removeBookBtn) {
+      myLibrary.removeBook(id);
+    }
+
+    if (markAsReadBtn) {
+      const book = myLibrary.books.find((b) => b.id === id);
+      if (!book) return;
+      book.markAsRead();
+      renderBooks();
+    }
+  }
 });
 
 newBookBtn.addEventListener('click', () => newBookModal.showModal());
