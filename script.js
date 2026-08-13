@@ -85,15 +85,15 @@ library.addEventListener('click', (e) => {
 
     if (removeBookBtn) {
       myLibrary.removeBook(id);
-      renderBooks();
     }
 
     if (markAsReadBtn) {
       const book = myLibrary.books.find((b) => b.id === id);
       if (!book) return;
       book.markAsRead();
-      renderBooks();
     }
+
+    renderBooks();
   }
 });
 
