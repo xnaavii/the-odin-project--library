@@ -226,13 +226,17 @@ body {
   gap: 0.2rem;
 }
 
-.input-group > input {
+input {
   padding: 0.5rem 1rem;
   border-radius: 1rem;
   border: 1px solid var(--border);
   background-color: var(--gray-100);
 }
 
-.input-group > input::placeholder {
+input:user-invalid {
+  border: 1px solid var(--destructive);
+}
+
+input::placeholder {
   color: var(--gray-600);
 }
