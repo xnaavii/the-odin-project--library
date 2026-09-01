@@ -29,19 +29,19 @@ class Book {
 }
 
 class Library {
-  #books = [];
+  books = [];
 
   get books() {
-    return this.#books;
+    return this.books;
   }
 
   set books(books) {
-    this.#books = books;
+    this.books = books;
   }
 
   addNewBook = ({ title, author, pages }) => {
     const newBook = new Book(title, author, pages);
-    this.#books.push(newBook);
+    this.books.push(newBook);
   };
 
   addBooks = (books) => {
@@ -51,7 +51,7 @@ class Library {
   };
 
   removeBook = (id) => {
-    this.#books = this.#books.filter((book) => book.id !== id);
+    this.books = this.books.filter((book) => book.id !== id);
   };
 }
 
@@ -95,7 +95,6 @@ const libraryView = new LibraryView(
 libraryView.render();
 
 libraryEl.addEventListener('click', (e) => {
-  console.log(e);
   const removeBookBtnEl = e.target.classList.contains('remove-book--btn');
   const markAsReadBtnEl = e.target.classList.contains('mark-book-as-read--btn');
 
