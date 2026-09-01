@@ -21,6 +21,7 @@ class Book {
     this.title = title;
     this.author = author;
     this.pages = pages;
+    this.read = false;
   }
 
   markAsRead = () => {
