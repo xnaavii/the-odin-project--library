@@ -22,19 +22,15 @@ class Book {
   }
 }
 
-function Library() {
-  if (!new.target) {
-    throw Error('This has to be called with the new operator!');
-  }
+class Library {
+  books = [];
 
-  this.books = [];
-
-  this.addNewBook = function addNewBook({ title, author, pages }) {
+  addNewBook = ({ title, author, pages }) => {
     const newBook = new Book(title, author, pages);
     this.books.push(newBook);
   };
 
-  this.removeBook = function removeBook(id) {
+  removeBook = (id) => {
     this.books = this.books.filter((book) => book.id !== id);
   };
 }
