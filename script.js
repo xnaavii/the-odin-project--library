@@ -53,7 +53,6 @@ class Library {
   };
 }
 
-// TODO: Refactor this to be encapsulated into it's own class to render
 class LibraryView {
   #root;
 
