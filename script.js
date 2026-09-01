@@ -13,15 +13,13 @@ const dummyBooks = [
   { title: 'Fahrenheit 451', author: 'Ray Bradbury', pages: 256 },
 ];
 
-function Book(id, title, author, pages) {
-  if (!new.target) {
-    throw Error("You must use the 'new' operator to call the constructor");
+class Book {
+  constructor(title, author, pages) {
+    this.id = crypto.randomUUID();
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
   }
-
-  this.id = id;
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
 }
 
 function Library() {
@@ -32,7 +30,7 @@ function Library() {
   this.books = [];
 
   this.addNewBook = function addNewBook({ title, author, pages }) {
-    const newBook = new Book(crypto.randomUUID(), title, author, pages);
+    const newBook = new Book(title, author, pages);
     this.books.push(newBook);
   };
 
