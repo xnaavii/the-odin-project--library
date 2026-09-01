@@ -88,11 +88,12 @@ class LibraryView {
 }
 
 const library = new Library();
-library.addBooks(dummyBooks);
 const libraryView = new LibraryView(
   library,
   document.querySelector('.library'),
 );
+
+library.addBooks(dummyBooks);
 libraryView.render();
 
 libraryEl.addEventListener('click', (e) => {
