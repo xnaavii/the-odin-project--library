@@ -120,7 +120,7 @@ newBookBtnEl.addEventListener('click', () => newBookModalEl.showModal());
 cancelAddNewBookBtnEl.addEventListener('click', () => newBookModalEl.close());
 newBookFormEl.addEventListener('submit', (e) => {
   e.preventDefault();
-  const formData = new FormData(newBookForm);
+  const formData = new FormData(newBookFormEl);
   const title = formData.get('title');
   const author = formData.get('author');
   const pages = formData.get('pages');
