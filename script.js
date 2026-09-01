@@ -20,6 +20,10 @@ class Book {
     this.author = author;
     this.pages = pages;
   }
+
+  markAsRead = () => {
+    this.read = !this.read;
+  };
 }
 
 class Library {
@@ -57,11 +61,7 @@ function renderBooks() {
   });
 }
 
-const myLibrary = new Library(dummyBooks);
-
-Book.prototype.markAsRead = function () {
-  this.read = !this.read;
-};
+const myLibrary = new Library();
 
 dummyBooks.forEach((book) => {
   myLibrary.addNewBook(book);
