@@ -117,7 +117,11 @@ libraryEl.addEventListener('click', (e) => {
 });
 
 newBookBtnEl.addEventListener('click', () => newBookModalEl.showModal());
-cancelAddNewBookBtnEl.addEventListener('click', () => newBookModalEl.close());
+cancelAddNewBookBtnEl.addEventListener('click', () => {
+  newBookFormEl.reset();
+  newBookModalEl.close();
+});
+
 newBookFormEl.addEventListener('submit', (e) => {
   e.preventDefault();
   const formData = new FormData(newBookFormEl);
