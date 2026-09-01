@@ -27,47 +27,71 @@ class Book {
 }
 
 class Library {
-  books = [];
+  #books = [];
+
+  get books() {
+    return this.#books;
+  }
+
+  set books(books) {
+    this.#books = books;
+  }
 
   addNewBook = ({ title, author, pages }) => {
     const newBook = new Book(title, author, pages);
-    this.books.push(newBook);
+    this.#books.push(newBook);
+  };
+
+  addBooks = (books) => {
+    books.forEach((book) => {
+      this.addNewBook({ ...book });
+    });
   };
 
   removeBook = (id) => {
-    this.books = this.books.filter((book) => book.id !== id);
+    this.#books = this.#books.filter((book) => book.id !== id);
   };
 }
 
-function renderBooks() {
-  library.innerHTML = '';
-  const books = myLibrary.books;
-  books.forEach((book) => {
-    const bookCard = `
-    <article class="book" data-id=${book.id}>
-      <div class="book-pages--top"></div>
-      <div class="book-pages--side"></div>
-      <header>
-        <h4 class="title">${book.title}</h4>
-        <p class="author">${book.author}</p>
-        <p class="pages">${book.pages} Pages</p>
-      </header>
-      <footer>
-      <button class="btn btn-destructive remove-book--btn">Remove</button>
-      <button class="btn btn-secondary mark-book-as-read--btn">${book.read ? 'Read ✔️' : 'Mark as read'}</button>
-      </footer>
-    </article>`;
-    library.insertAdjacentHTML('beforeend', bookCard);
-  });
+// TODO: Refactor this to be encapsulated into it's own class to render
+class LibraryView {
+  #root;
+
+  constructor(library, targetElement) {
+    this.library = library;
+    this.#root = targetElement;
+  }
+
+  render = () => {
+    this.#root.innerHTML = this.library.books
+      .map((book) => {
+        return `
+      <article class="book" data-id=${book.id}>
+        <div class="book-pages--top"></div>
+        <div class="book-pages--side"></div>
+        <header>
+          <h4 class="title">${book.title}</h4>
+          <p class="author">${book.author}</p>
+          <p class="pages">${book.pages} Pages</p>
+        </header>
+        <footer>
+          <button class="btn btn-destructive remove-book--btn">Remove</button>
+          <button class="btn btn-secondary mark-book-as-read--btn">${book.read ? 'Read ✔️' : 'Mark as read'}</button>
+        </footer>
+      </article>
+      `;
+      })
+      .join('');
+  };
 }
 
 const myLibrary = new Library();
-
-dummyBooks.forEach((book) => {
-  myLibrary.addNewBook(book);
-});
-
-renderBooks();
+myLibrary.addBooks(dummyBooks);
+const libraryView = new LibraryView(
+  myLibrary,
+  document.querySelector('.library'),
+);
+libraryView.render();
 
 library.addEventListener('click', (e) => {
   const removeBookBtn = e.target.classList.contains('remove-book--btn');
@@ -87,7 +111,7 @@ library.addEventListener('click', (e) => {
       book.markAsRead();
     }
 
-    renderBooks();
+    libraryView.render();
   }
 });
 
@@ -103,5 +127,5 @@ newBookForm.addEventListener('submit', (e) => {
   myLibrary.addNewBook({ title, author, pages });
   newBookForm.reset();
   newBookModal.close();
-  renderBooks();
+  libraryRenderer.render();
 });
