@@ -1,8 +1,10 @@
-const library = document.querySelector('.library');
-const newBookModal = document.querySelector('.new-book--modal');
-const newBookForm = document.querySelector('.new-book--form');
-const newBookBtn = document.querySelector('.new-book--btn');
-const cancelAddNewBookBtn = document.querySelector('.cancel-add-new-book--btn');
+const libraryEl = document.querySelector('.library');
+const newBookModalEl = document.querySelector('.new-book--modal');
+const newBookFormEl = document.querySelector('.new-book--form');
+const newBookBtnEl = document.querySelector('.new-book--btn');
+const cancelAddNewBookBtnEl = document.querySelector(
+  '.cancel-add-new-book--btn',
+);
 
 const dummyBooks = [
   { title: 'To Kill a Mockingbird', author: 'Harper Lee', pages: 281 },
@@ -84,28 +86,29 @@ class LibraryView {
   };
 }
 
-const myLibrary = new Library();
-myLibrary.addBooks(dummyBooks);
+const library = new Library();
+library.addBooks(dummyBooks);
 const libraryView = new LibraryView(
-  myLibrary,
+  library,
   document.querySelector('.library'),
 );
 libraryView.render();
 
-library.addEventListener('click', (e) => {
-  const removeBookBtn = e.target.classList.contains('remove-book--btn');
-  const markAsReadBtn = e.target.classList.contains('mark-book-as-read--btn');
+libraryEl.addEventListener('click', (e) => {
+  console.log(e);
+  const removeBookBtnEl = e.target.classList.contains('remove-book--btn');
+  const markAsReadBtnEl = e.target.classList.contains('mark-book-as-read--btn');
 
-  if (removeBookBtn || markAsReadBtn) {
+  if (removeBookBtnEl || markAsReadBtnEl) {
     const card = e.target.closest('.book');
     const id = card.dataset.id;
 
-    if (removeBookBtn) {
-      myLibrary.removeBook(id);
+    if (removeBookBtnEl) {
+      library.removeBook(id);
     }
 
-    if (markAsReadBtn) {
-      const book = myLibrary.books.find((b) => b.id === id);
+    if (markAsReadBtnEl) {
+      const book = library.books.find((b) => b.id === id);
       if (!book) return;
       book.markAsRead();
     }
@@ -114,17 +117,17 @@ library.addEventListener('click', (e) => {
   }
 });
 
-newBookBtn.addEventListener('click', () => newBookModal.showModal());
-cancelAddNewBookBtn.addEventListener('click', () => newBookModal.close());
-newBookForm.addEventListener('submit', (e) => {
+newBookBtnEl.addEventListener('click', () => newBookModalEl.showModal());
+cancelAddNewBookBtnEl.addEventListener('click', () => newBookModalEl.close());
+newBookFormEl.addEventListener('submit', (e) => {
   e.preventDefault();
   const formData = new FormData(newBookForm);
   const title = formData.get('title');
   const author = formData.get('author');
   const pages = formData.get('pages');
 
-  myLibrary.addNewBook({ title, author, pages });
-  newBookForm.reset();
-  newBookModal.close();
+  library.addNewBook({ title, author, pages });
+  newBookFormEl.reset();
+  newBookModalEl.close();
   libraryRenderer.render();
 });
